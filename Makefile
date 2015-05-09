@@ -1,13 +1,13 @@
-all: lab0a.c functions.c
-	gcc -o lab0a lab0a.c functions.c -I .
+all: lab6.c liststyle.c
+	gcc -o lab6 lab6.c liststyle.c -I .
 
 run:
-	./lab0a
+	./lab6
 
 clean:
-	rm -f lab0a
+	rm -f lab6
 
-test: test.c functions.c
-	gcc -o t test.c functions.c -I .
+test: test.c liststyle.c
+	gcc -o t test.c liststyle.c -I .
 	./t
 	rm -f t
