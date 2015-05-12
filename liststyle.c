@@ -7,6 +7,7 @@
 Tree *create(){
     Tree *new_tree = calloc(1, sizeof(Tree));
     new_tree->size = 0;
+	new_tree->root = NULL;
     return new_tree;
 }
 Node *build(int val){
@@ -14,6 +15,7 @@ Node *build(int val){
     node->val = val;
     return node;
 }
+/* Don't think i need this */
 int clearNode(Node *target){
     /* Base Case. Left and Right Empty. */
     if(target->left == NULL && target->right == NULL){
@@ -33,38 +35,33 @@ int clearNode(Node *target){
     puts("Tree Cleared.");
     return 0;
 }
-void addNode(Tree *tree, Node *parent){
-    int val;
-    (tree->size)++;    
-    /* Base Case */
-    if(parent->left != NULL & parent->right != NULL){
-        printf("Node %d Complete.", parent->val);
-        return;
-    } 
-    /* If left side is done, lets build the right. */
-    else if (parent->left != NULL) {
-        puts("Enter Right Value: ");
-        scanf("%d", &val);
-        if(val >= 0){
-            /*recurse to populate new right node children. */
-            addNode(tree, newChild(tree, parent, val, "R"));
-        } else {
-            puts("No Right Node Added.");
-            return;
-        }
-    }
-    /* If Left isn't done lets build one. */
-    else {
-        puts("Enter Left Value: ");
-        scanf("%d", &val);
-        if(val >= 0){
-            /*recurse to populate new left node children. */
-            addNode(tree, newChild(tree, parent, val, "L"));
-        } else {
-            puts("No Left Node Added.");
-            return;
-        }
-    }
+
+void addNode(Tree *tree, Node *parent, Node *new){
+	if (parent->val == new->val){
+		printf("Node Exists.\n");
+	}
+	/* Left Branch */
+    else if (parent->val > new->val){
+		/* If we find a child, recurse. */
+		if (parent->left != NULL){
+			addNode(parent->left, new);
+		}
+		else {
+			parent->left = new;
+			(tree->size)++;
+		}
+	} 
+	/* Right Branch */
+	else {
+		/* If we find a child, recurse. */
+		if (parent->right != NULL){
+			addNode(parent->right, new);
+		}
+		else {
+			parent->right = new;
+			(tree->size)++;
+		}
+	}	
 }
 /* Creates a child node of value val on specified side. */
 void *newChild(Tree *tree, Node *parent, int val, char *side){

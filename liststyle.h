@@ -1,7 +1,6 @@
 typedef struct Node{
     struct Node *left;
     struct Node *right;
-    struct Tree *tree;
     int val;
 } Node;
 typedef struct Tree{
