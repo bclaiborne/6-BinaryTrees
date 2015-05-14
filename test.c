@@ -64,11 +64,6 @@ int test_return_funcs(){
 	int i;
 	Node *cycle = build(48);
 	tree->root = cycle;
-	/* Add a great many nodes */
-	for(i=1; i<50; i++){
-		cycle->val = i;
-		addNode(tree, tree->root, cycle);
-	}
 	/* Test Tree Functions */
 	puts("------ Return Functions Gibberish -------");
 	assert(visit(tree->root) == 0);
@@ -78,6 +73,6 @@ int test_return_funcs(){
 	assert(postOrder(tree->root) == 0);
 	assert(inOrder(tree->root) == 0);
 	
-	puts("------ Function Gibberish Done. 	-------");
+	puts("\n------ Function Gibberish Done. -------");
 	return 0;
 }
