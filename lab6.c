@@ -7,7 +7,7 @@ int main(){
 	Tree *binary = create();
 	int val = 0;
 	while (val >= 0){
-		puts("Enter Value: \n");
+		puts("Enter Value: ");
 		scanf("%d", &val);
 		
 		/* Negative values terminate the tree. */
@@ -19,9 +19,18 @@ int main(){
 		/* Special case: The tree root doesn't work in the recursive function. */
 		if (binary->root == NULL){
 			binary->root = node;
+			binary->size++;
 		} else {
 			addNode(binary, binary->root, node);
 		}
+		printf("Tree Size: %d", binary->size);
+		printf("\nPreOrder Sequence: ");
+		preOrder(binary->root);
+		printf("\nInOrder Sequence: ");
+		inOrder(binary->root);
+		printf("\nPostOrder Sequence: ");
+		postOrder(binary->root);
+		puts("");
 	}
 	puts("Value was negative. Ending Input\n");
 	

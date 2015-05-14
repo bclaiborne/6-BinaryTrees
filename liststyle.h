@@ -11,8 +11,11 @@ typedef struct Tree{
 Tree *create();
 Node *build(int val);
 int clearNode(Node *target);
-void addNode(Tree *tree, Node *parent);
+void addNode(Tree *tree, Node *parent, Node *node);
 void *newChild(Tree *tree, Node *parent, int val, char *side);
-int preOrder();
-int inOrder();
-int postOrder();
+int preOrder(Node *current);
+int inOrder(Node *current);
+int postOrder(Node *current);
+int visit(Node *node);
+int leftSide(Node *node);
+int rightSide(Node *node);

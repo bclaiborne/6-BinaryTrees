@@ -15,26 +15,6 @@ Node *build(int val){
     node->val = val;
     return node;
 }
-/* Don't think i need this */
-int clearNode(Node *target){
-    /* Base Case. Left and Right Empty. */
-    if(target->left == NULL && target->right == NULL){
-        /* The node has no children. Delete it.*/
-        free(target);
-        return 0;
-    } /* Left Empty Case. */
-    else if (target->left == NULL){
-        /* Recurse down the right side. */
-        clearNode(target->right);
-    } /* Left Full Case. */
-    else {
-        /* Recurse down the left branch. */
-        clearNode(target->left);
-    }
-    /* Notify Done. */
-    puts("Tree Cleared.");
-    return 0;
-}
 
 void addNode(Tree *tree, Node *parent, Node *new){
 	if (parent->val == new->val){
@@ -44,7 +24,7 @@ void addNode(Tree *tree, Node *parent, Node *new){
     else if (parent->val > new->val){
 		/* If we find a child, recurse. */
 		if (parent->left != NULL){
-			addNode(parent->left, new);
+			addNode(tree, parent->left, new);
 		}
 		else {
 			parent->left = new;
@@ -55,7 +35,7 @@ void addNode(Tree *tree, Node *parent, Node *new){
 	else {
 		/* If we find a child, recurse. */
 		if (parent->right != NULL){
-			addNode(parent->right, new);
+			addNode(tree, parent->right, new);
 		}
 		else {
 			parent->right = new;
@@ -63,22 +43,42 @@ void addNode(Tree *tree, Node *parent, Node *new){
 		}
 	}	
 }
-/* Creates a child node of value val on specified side. */
-void *newChild(Tree *tree, Node *parent, int val, char *side){
-    Node *new_node = build(val);
-    new_node->tree = tree;
-        if(side = "L"){
-            parent->left->val = val;
-        } else {
-            parent->right->val = val;
-        }
-    return new_node;
+int preOrder(Node *current){
+	/* Visits before recursion. */
+	visit(current);
+	leftSide(current);
+	rightSide(current);
+	return 0;
 }
-
-
-
-
-
-
-
-
+int inOrder(Node *current){
+	leftSide(current);
+	/* Visit Between Recursions. */
+	visit(current);
+	rightSide(current);
+	return 0;
+}
+int postOrder(Node *current){
+	leftSide(current);
+	rightSide(current);
+	/* Visit After Recursions */
+	visit(current);
+	return 0;
+}
+int visit(Node *node){
+	printf("%d, ", node->val);
+	return 0;
+}
+int leftSide(Node *node){
+	/* Recurse down the left side of a branch */
+	if(node->left != NULL){
+		leftSide(node->left);
+	}
+	return 0;
+}
+int rightSide(Node *node){
+	/* Recurse down the right side of a branch */
+	if(node->right != NULL){
+		rightSide(node->right);
+	}
+	return 0;
+}
