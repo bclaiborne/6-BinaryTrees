@@ -67,8 +67,6 @@ int test_return_funcs(){
 	/* Test Tree Functions */
 	puts("------ Return Functions Gibberish -------");
 	assert(visit(tree->root) == 0);
-	assert(leftSide(tree->root) == 0);
-	assert(rightSide(tree->root) == 0);
 	assert(preOrder(tree->root) == 0);
 	assert(postOrder(tree->root) == 0);
 	assert(inOrder(tree->root) == 0);

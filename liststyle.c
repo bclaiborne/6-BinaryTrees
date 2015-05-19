@@ -46,39 +46,25 @@ void addNode(Tree *tree, Node *parent, Node *new){
 int preOrder(Node *current){
 	/* Visits before recursion. */
 	visit(current);
-	leftSide(current);
-	rightSide(current);
+    if(current->left != NULL){preOrder(current->left);}
+    if(current->right != NULL){preOrder(current->right);}
 	return 0;
 }
 int inOrder(Node *current){
-	leftSide(current);
+    if(current->left != NULL){inOrder(current->left);}
 	/* Visit Between Recursions. */
 	visit(current);
-	rightSide(current);
+    if(current->right != NULL){inOrder(current->right);}
 	return 0;
 }
 int postOrder(Node *current){
-	leftSide(current);
-	rightSide(current);
+    if(current->left != NULL){postOrder(current->left);}
+    if(current->right != NULL){postOrder(current->right);}
 	/* Visit After Recursions */
 	visit(current);
 	return 0;
 }
 int visit(Node *node){
 	printf("%d, ", node->val);
-	return 0;
-}
-int leftSide(Node *node){
-	/* Recurse down the left side of a branch */
-	if(node->left != NULL){
-		leftSide(node->left);
-	}
-	return 0;
-}
-int rightSide(Node *node){
-	/* Recurse down the right side of a branch */
-	if(node->right != NULL){
-		rightSide(node->right);
-	}
 	return 0;
 }
