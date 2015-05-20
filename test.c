@@ -13,6 +13,7 @@ int main(void){
     test_tree();
 	puts("Testing addNode().");
 	test_addNode();
+	test_addEntry();
 	puts("Testing all node functions.");
 	test_return_funcs();
 	puts("Tests Done.");
@@ -56,6 +57,28 @@ int test_addNode(){
 	free(node1);
 	free(node2);
 	free(tree);
+	return 0;
+}
+int test_addEntry(){
+    int array[255] = {0};
+    int ar_size = 0;
+	int i = 0;
+	
+	array[0] = 7;
+	
+	assert(array[1] == 0);
+	assert(array[2] == 0);
+	/* Greater than should go in index 2. */
+	addEntry(array, 0, 10);
+	assert(array[2] == 10);
+	/* Less than should go in index 1. */
+	addEntry(array, 0, 5);
+	assert(array[1] == 5);
+	/* Lower layers recursion tests. */
+	addEntry(array, 0, 9);
+	addEntry(array, 0, 11);
+	assert(array[5] == 9);
+	assert(array[6] == 11);
 	return 0;
 }
 int test_return_funcs(){

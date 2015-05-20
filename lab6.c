@@ -2,9 +2,14 @@
 #include <string.h>
 
 #include "liststyle.h"
+#include "arraystyle.h"
+
+extern int array[255];
+extern int arr_size;
 
 int main(){
 	Tree *binary = create();
+	
 	int val = 0;
 	while (val >= 0){
 		puts("Enter Value: ");
@@ -15,6 +20,13 @@ int main(){
 		
 		/* Create a node to add to the tree */
 		Node *node = build(val);
+		/* Start the array */
+		if (array[0] == 0){
+			array[0] = val;
+		}
+		else {
+			addEntry(array, 0, val);
+		}
 		
 		/* Special case: The tree root doesn't work in the recursive function. */
 		if (binary->root == NULL){

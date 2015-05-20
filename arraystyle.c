@@ -3,13 +3,10 @@
 #include <string.h>
 
 #include <arraystyle.h>
-
-/* For 8 tiers, its 2^8 array locations = 256. */
-int main(){
+	/* For 8 tiers, its 2^8 array locations = 256. */
     int array[255] = {0};
     int ar_size = 0;
-    
-}
+
 void addEntry(int *array, int index, int value){
     
     /* Find the next two children locations */
@@ -22,7 +19,7 @@ void addEntry(int *array, int index, int value){
 	/* Left Branch */
     else if (array[index] > value){
 		/* If we find a child, recurse. */
-		if (array[lefty] != NULL){
+		if (array[lefty] != 0){
 			addEntry(array, lefty, value);
 		}
 		else {
@@ -33,7 +30,7 @@ void addEntry(int *array, int index, int value){
 	/* Right Branch */
 	else {
 		/* If we find a child, recurse. */
-		if (array[righty] != NULL){
+		if (array[righty] != 0){
 			addEntry(array, righty, value);
 		}
 		else {
@@ -42,43 +39,38 @@ void addEntry(int *array, int index, int value){
 		}
 	}	
 }
-int preOrder(int *array, int index){
+int arrPreOrder(int *array, int index){
+	int lefty = childL(index);
+	int righty = childR(index);
+	
 	/* Visits before recursion. */
 	visit(array[index]);
-	leftSide(array[index]);
-	rightSide(array[index]);
+    if(branchSafe(lefty, array)){preOrder(array, lefty);}
+    if(branchSafe(righty, array)){preOrder(array, righty);}
 	return 0;
 }
-int inOrder(int *array, int index){
-	leftSide(array[index]);
+int arrInOrder(int *array, int index){
+	int lefty = childL(index);
+	int righty = childR(index);
+	
+    if(branchSafe(lefty, array)){inOrder(array, lefty);}
 	/* Visit Between Recursions. */
 	visit(array[index]);
-	rightSide(array[index]);
+	if(branchSafe(righty, array)){inOrder(array, righty);}
 	return 0;
 }
-int postOrder(int *array, int index){
-	leftSide(array[index]);
-	rightSide(array[index]);
+int arrPostOrder(int *array, int index){
+	int lefty = childL(index);
+	int righty = childR(index);
+	
+    if(branchSafe(lefty, array)){postOrder(array, lefty);}
+	if(branchSafe(righty, array)){postOrder(array, righty);}
 	/* Visit After Recursions */
 	visit(array[index]);
 	return 0;
 }
-int visit(int *array, int index){
+int arrVisit(int *array, int index){
 	printf("%d, ", array[index]);
-	return 0;
-}
-int leftSide(int *array, int index){
-	/* Recurse down the left side of a branch */
-	if(node->left != NULL){
-		leftSide(array, childL(index));
-	}
-	return 0;
-}
-int rightSide(int *array, int index){
-	/* Recurse down the right side of a branch */
-	if(node->right != NULL){
-		rightSide(array, childR(index));
-	}
 	return 0;
 }
 /* children location functions */
@@ -87,4 +79,12 @@ int childR(int index){
 }
 int childL(int index){
     return 2*index +1;
+}
+int branchSafe(int index, int *array){
+	/* Just checks if the index is a valid array index and has a value so we can flow down the tree. */
+	if(index <= 255 && array[index] != 0){
+		return 1;
+	} else {
+		return 0;
+	}
 }
