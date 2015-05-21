@@ -5,3 +5,5 @@ int arrPostOrder(int *array, int index);
 int arrVisit(int *array, int index);
 int childR(int index);
 int childL(int index);
+int branchSafe(int index, int *array);
+int buildArrayTree(int *array, int val);

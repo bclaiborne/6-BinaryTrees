@@ -15,3 +15,4 @@ int preOrder(Node *current);
 int inOrder(Node *current);
 int postOrder(Node *current);
 int visit(Node *node);
+int buildListTree(Tree *binary, int val);

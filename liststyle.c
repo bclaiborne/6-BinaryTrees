@@ -17,6 +17,7 @@ Node *build(int val){
 }
 
 void addNode(Tree *tree, Node *parent, Node *new){
+    /* Avoid Duplicates */
 	if (parent->val == new->val){
 		printf("Node Exists.\n");
 	}
@@ -26,6 +27,7 @@ void addNode(Tree *tree, Node *parent, Node *new){
 		if (parent->left != NULL){
 			addNode(tree, parent->left, new);
 		}
+        /* Or save the value. */
 		else {
 			parent->left = new;
 			(tree->size)++;
@@ -37,6 +39,7 @@ void addNode(Tree *tree, Node *parent, Node *new){
 		if (parent->right != NULL){
 			addNode(tree, parent->right, new);
 		}
+        /* Or save the value. */
 		else {
 			parent->right = new;
 			(tree->size)++;
@@ -65,6 +68,21 @@ int postOrder(Node *current){
 	return 0;
 }
 int visit(Node *node){
+    /* "A node by any other name... is probably a Segmentation Fault." 
+                -Wi11iam Sh8ksp3r3                                  */
 	printf("%d, ", node->val);
 	return 0;
+}
+int buildListTree(Tree *binary, int val){
+    /* Create a node to add to the tree */
+    Node *node = build(val);
+
+    /* Special case: The tree root doesn't work in the recursive function. */
+    if (binary->root == NULL){
+        binary->root = node;
+        binary->size++;
+    } else {
+        addNode(binary, binary->root, node);
+    }
+    return 0;
 }

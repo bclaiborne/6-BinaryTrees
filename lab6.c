@@ -4,10 +4,10 @@
 #include "liststyle.h"
 #include "arraystyle.h"
 
-extern int array[255];
-extern int arr_size;
-
 int main(){
+    /* For 8 tiers, its 2^8 array locations = 256. */
+    int array[255] = {0};
+    int ar_size = 0;
 	Tree *binary = create();
 	
 	int val = 0;
@@ -17,31 +17,26 @@ int main(){
 		
 		/* Negative values terminate the tree. */
 		if(val < 0){ break;	}
-		
-		/* Create a node to add to the tree */
-		Node *node = build(val);
-		/* Start the array */
-		if (array[0] == 0){
-			array[0] = val;
-		}
-		else {
-			addEntry(array, 0, val);
-		}
-		
-		/* Special case: The tree root doesn't work in the recursive function. */
-		if (binary->root == NULL){
-			binary->root = node;
-			binary->size++;
-		} else {
-			addNode(binary, binary->root, node);
-		}
-		printf("Tree Size: %d", binary->size);
-		printf("\nPreOrder Sequence: ");
+        
+        buildArrayTree(array, val);
+        ar_size++;
+        buildListTree(binary, val);
+        
+        /* Output */
+		printf("Tree Size:   %d\n", binary->size);
+		printf("Array Size:  %d\n", ar_size);
+		printf("\nPreOrder Sequence:  ");
 		preOrder(binary->root);
-		printf("\nInOrder Sequence: ");
+		printf("\nArrayPre Sequence:  ");
+		arrPreOrder(array, 0);
+		printf("\nInOrder Sequence:   ");
 		inOrder(binary->root);
+		printf("\nArrayIn Sequence:   ");
+		arrInOrder(array, 0);
 		printf("\nPostOrder Sequence: ");
 		postOrder(binary->root);
+		printf("\nArrayPost Sequence: ");
+		arrPostOrder(array, 0);
 		puts("");
 	}
 	puts("Value was negative. Ending Input\n");
